@@ -1,0 +1,40 @@
+<style type="text/css" id="cleaner-wp-gallery">
+
+/* clearfix */
+.gallery::after {
+	content:    ".";
+	display:    block;
+	height:     0;
+	clear:      both;
+	visibility: hidden;
+}
+
+/* clear gallery styles */
+figure { margin: 0 auto; /* undo normalize.css and one-five.css and let element auto align */ }
+.gallery img { margin: 0; /* undo grid.css. important: does responsive */ }
+.gallery .column { padding: 0; /* undo grid.css. */ }
+/* end clear gallery styles */
+
+.gallery .gallery-icon a img {
+	padding: 9px;
+	border:  1px solid #E3E3E3;
+}
+
+.gallery-caption { display: none; }	
+
+/* === Gallery width === */
+
+.gallery { max-width: 195px; margin: 0 auto; padding: 0 0; }
+.gallery-item { float: none; max-width: 195px; height: auto; margin: 0.5rem 0.5rem; margin-bottom: 1.5rem; }
+.gallery-icon img { max-width: 100%; height: auto; }	
+					
+	@media (min-width: 645px) {
+
+		/* === Descendants of #main === */
+
+		.gallery { max-width: 645px; margin: 0 auto; padding: 0 0; padding-left: 1.5rem; }
+		.gallery-item { float: left; max-width: 195px; height: auto; margin: 0.5rem 0.5rem; }
+		.gallery-icon img { max-width: 100%; height: auto; }	
+
+	}	
+</style>
