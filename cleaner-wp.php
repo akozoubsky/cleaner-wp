@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Cleaner WP
- * Plugin URI: https://github.com/akozoubsky/cleaner-wordpress
+ * Plugin URI: https://github.com/akozoubsky/cleaner-wp
  * Description: Clean WordPress Features and Styles. 
  * Version: 0.0.1
  * Author: Alexandre Kozoubsky
