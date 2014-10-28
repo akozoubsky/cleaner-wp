@@ -24,7 +24,7 @@ figure { margin: 0 auto; /* undo normalize.css and one-five.css and let element 
 
 /* === Gallery width === */
 
-.gallery { max-width: 195px; margin: 0 auto; padding: 0 0; }
+.gallery { max-width: 195px; margin: 0 auto; padding: 1.5rem 0; }
 .gallery-item { float: none; max-width: 195px; height: auto; margin: 0.5rem 0.5rem; margin-bottom: 1.5rem; }
 .gallery-icon img { max-width: 100%; height: auto; }	
 					
@@ -32,7 +32,7 @@ figure { margin: 0 auto; /* undo normalize.css and one-five.css and let element 
 
 		/* === Descendants of #main === */
 
-		.gallery { max-width: 645px; margin: 0 auto; padding: 0 0; padding-left: 1.5rem; }
+		.gallery { max-width: 645px; margin: 0 auto; padding: 1.5rem 0; padding-left: 1.5rem; }
 		.gallery-item { float: left; max-width: 195px; height: auto; margin: 0.5rem 0.5rem; }
 		.gallery-icon img { max-width: 100%; height: auto; }	
 
