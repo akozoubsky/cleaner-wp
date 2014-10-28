@@ -16,6 +16,13 @@
  *
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * 
+ * @package    CleanerWP
+ * @version    0.0.1
+ * @author     Alexandre Kozoubsky <alexandre@alexandrekozoubsky.com>
+ * @copyright  Copyright (c) 2014 - 2015, Alexandre Kozoubsky
+ * @link       https://github.com/akozoubsky/cleaner-wp
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
