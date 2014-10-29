@@ -167,11 +167,9 @@ final class Cleaner_WP {
 	 * Output - JQuery + CSS
 	 */
 	public function cleaner_wp_scripts() {
-		wp_enqueue_script(
-			'cleaner-wp',
-			"{$this->directory_uri}js/cleaner-wp.js",
-			array( 'jquery' )
-		);
+		
+		wp_register_script('cleaner-wp', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
+		wp_enqueue_script('cleaner-wp');
 		
 		wp_register_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );	
 		wp_enqueue_style( 'cleaner-wp' );	
@@ -190,7 +188,7 @@ final class Cleaner_WP {
 	public function jquery_enqueue() {
 		if ( !is_admin() ) {
 			wp_deregister_script('jquery');
-			wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", false, null);
+			wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js", false, null);
 			wp_enqueue_script('jquery');
 		}
 	}
