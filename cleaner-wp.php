@@ -3,7 +3,7 @@
  * Plugin Name: Cleaner WP
  * Plugin URI: https://github.com/akozoubsky/cleaner-wp
  * Description: Clean WordPress Features and Styles. 
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Alexandre Kozoubsky
  * Author URI: http://alexandrekozoubsky.com
  *
@@ -23,7 +23,7 @@ final class Cleaner_WP {
 	/**
 	 * Holds the instance of this class.
 	 *
-	 * @since  0.1.0
+	 * @since  0.0.1
 	 * @access private
 	 * @var    object
 	 */
@@ -32,7 +32,7 @@ final class Cleaner_WP {
 	/**
 	 * Stores the directory path for this plugin.
 	 *
-	 * @since  0.1.0
+	 * @since  0.0.1
 	 * @access private
 	 * @var    string
 	 */
@@ -41,7 +41,7 @@ final class Cleaner_WP {
 	/**
 	 * Plugin setup.
 	 *
-	 * @since  0.1.0
+	 * @since  0.0.1
 	 * @access public
 	 * @return void
 	 */
@@ -50,6 +50,9 @@ final class Cleaner_WP {
 		/* Set the properties needed by the plugin. */
 		add_action( 'plugins_loaded', array( $this, 'setup' ), 1 );	
 			
+		/* Set up theme support. */
+		add_action( 'after_setup_theme', array( $this, 'theme_support' ), 12 );
+					
 		add_action( 'pre_get_posts', array( $this, 'search_results_per_page' ), 3 );
 		
 		add_filter( 'body_class', array( $this, 'clwp_body_class' ), 4 ); 
@@ -71,7 +74,7 @@ final class Cleaner_WP {
 		add_action('init', array( $this, 'removeHeadLinks' ), 12 ); 
 		
 		/* add_filter( 'login_errors', array( $this, 'login_obscure' ), 13 ); */
-		add_filter( 'login_errors', '__return_null' );
+		add_filter( 'login_errors', array( $this, 'login_obscure' ), 13 );
 		
 		add_filter( 'use_default_gallery_style', '__return_false' );
 		
@@ -82,7 +85,7 @@ final class Cleaner_WP {
 	/**
 	 * Defines the directory path and URI for the plugin.
 	 *
-	 * @since  0.1.0
+	 * @since  0.0.1
 	 * @access public
 	 * @return void
 	 */
@@ -91,6 +94,19 @@ final class Cleaner_WP {
 		$this->directory_path = trailingslashit( plugin_dir_path( __FILE__ ) );
 		$this->directory_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 	}
+	
+	/**
+	 * Removes ' ' theme support.  This is so that the plugin will take over the 
+	 * widgets instead of themes built on Hybrid Core.  Plugin updates can get out quicker to users, 
+	 * so the plugin should have priority.
+	 *
+	 * @since  0.0.2
+	 * @access public
+	 * @return void
+	 */	
+	public function theme_support() {
+		return;
+	}	
 
 	/**
 	 * Queries
@@ -161,11 +177,8 @@ final class Cleaner_WP {
 		wp_enqueue_style( 'cleaner-wp' );	
 		
 		/* Gallery shortcode */
-		if  ( ! current_theme_supports( 'cleaner-gallery' ) ) {
-			wp_register_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css");	
-			wp_enqueue_style( 'cleaner-wp-gallery' );
-		}		
-			
+		wp_register_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css");	
+		wp_enqueue_style( 'cleaner-wp-gallery' );
 	}
     
 	/**
@@ -190,15 +203,12 @@ final class Cleaner_WP {
 		echo '<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
 	}
 
-
 	/**
 	 * Security
 	 */
 
 	// Obscure login screen error messages
-	public function login_obscure() { return ''; }
-
-
+	public function login_obscure() { return null; }
 
 	/*	Cleaning-up header
 		If you don’t add a PRIORITY then you try to remove the generator before WP has added it, especially in a child theme.
