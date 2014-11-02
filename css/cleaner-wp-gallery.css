@@ -9,22 +9,27 @@
 	visibility: hidden;
 }
 
-.gallery-caption { display: none; }	
+/* --- copy of Stargazer theme with some ajustments -- */
 
-.gallery .gallery-icon img { margin-bottom: 0.9rem; }
+.main .gallery { max-width: 1024px; margin-bottom: 1rem; }
 
-/* border */
-.gallery .gallery-icon a img {
-	padding: 9px;
-	border:  1px solid #E3E3E3;
-}
+	.gallery-columns-0 { margin: 0 auto; display: table; } /* marreta para alinhar */
 
-/* === Limit Gallery width === */
-	
-	@media (min-width: 64rem) {
+	.gallery-item { margin-bottom: 0.5rem; }
 
-		/* === Descendants of #main === */
+			.gallery-icon a img {
+				padding: 9px;
+				border:  1px solid;
+			}
 
-		.gallery { max-width: 64rem; }
-	}		
-}
+		.gallery-caption { font-size: 0.875rem; }
+
+			.gallery-caption { display: none; }
+
+		@media only screen and ( max-width: 480px ) {
+
+			.gallery-item { float: none; width: 100%; margin: 0 auto; text-align: center; }
+
+			.gallery-icon img { max-width: 100%; }
+		}
+		

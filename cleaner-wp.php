@@ -116,7 +116,7 @@ final class Cleaner_WP {
 	public function search_results_per_page( $query ) {
 		global $wp_the_query;
 		if ( ( ! is_admin() ) && ( $query === $wp_the_query ) && ( $query->is_search() ) ) {
-		$query->set( 'search_results_per_page', 100 );
+		$query->set( 'search_results_per_page', 50 );
 		}
 		return $query;
 	}
@@ -168,15 +168,12 @@ final class Cleaner_WP {
 	 */
 	public function cleaner_wp_scripts() {
 		
-		wp_register_script('cleaner-wp', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
-		wp_enqueue_script('cleaner-wp');
+		wp_enqueue_script('cleaner-wp-js', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
 		
-		wp_register_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );	
-		wp_enqueue_style( 'cleaner-wp' );	
+		wp_enqueue_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );	
 		
 		/* Gallery shortcode */
-		wp_register_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css");	
-		wp_enqueue_style( 'cleaner-wp-gallery' );
+		wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" );
 	}
     
 	/**
