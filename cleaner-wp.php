@@ -173,7 +173,7 @@ final class Cleaner_WP {
 		wp_enqueue_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );	
 		
 		/* Gallery shortcode */
-		wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" );
+		/* wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" ); */
 	}
     
 	/**
