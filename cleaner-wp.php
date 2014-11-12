@@ -55,7 +55,7 @@ final class Cleaner_WP {
 					
 		add_action( 'pre_get_posts', array( $this, 'search_results_per_page' ), 3 );
 		
-		add_filter( 'body_class', array( $this, 'clwp_body_class' ), 4 ); 
+		/* add_filter( 'body_class', array( $this, 'clwp_body_class' ), 4 ); */
 		
 		add_filter('body_class', array( $this, 'has_sidebar' ), 5 );
 		
@@ -65,7 +65,7 @@ final class Cleaner_WP {
 		
 		add_action( 'wp_enqueue_scripts', array( $this, 'cleaner_wp_scripts' ), 8 );
 		
-		add_action( 'wp_enqueue_scripts', array( $this, 'jquery_enqueue' ), 9 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'jquery_enqueue' ), 9 ); 
 		
 		add_action('wp_head', array( $this, 'IEhtml5_shim' ), 10 );
 		
