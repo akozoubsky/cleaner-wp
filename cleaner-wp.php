@@ -64,13 +64,7 @@ final class Cleaner_WP {
 		add_action( 'admin_head_media_upload_gallery_form', array( $this, 'mfields_remove_gallery_setting_div' ), 7 );
 		
 		add_action( 'wp_enqueue_scripts', array( $this, 'cleaner_wp_scripts' ), 8 );
-		
-		add_action( 'wp_enqueue_scripts', array( $this, 'jquery_enqueue' ), 9 ); 
-		
-		add_action('wp_head', array( $this, 'IEhtml5_shim' ), 10 );
-		
-		add_action('init', array( $this, 'max_content_width' ), 11 );
-		
+			
 		add_action('init', array( $this, 'removeHeadLinks' ), 12 ); 
 		
 		/* add_filter( 'login_errors', array( $this, 'login_obscure' ), 13 ); */
@@ -156,13 +150,6 @@ final class Cleaner_WP {
 		return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
 	}
 
-
-	// Set a maximum width for Oembedded objects
-	public function max_content_width() {
-		if ( ! isset( $content_width ) )
-		$content_width = 1024;
-	}
-
 	/**
 	 * Output - JQuery + CSS
 	 */
@@ -174,29 +161,21 @@ final class Cleaner_WP {
 		
 		/* Gallery shortcode */
 		/* wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" ); */
-	}
-    
-	/**
-	 * Performance
-	 */
-	 
-	// Call the google CDN version of jQuery for the frontend
-	// Make sure you use this with wp_enqueue_script('jquery'); in your header
-	public function jquery_enqueue() {
+		
+		// Performance - Call the google CDN version of jQuery for the frontend
 		if ( !is_admin() ) {
 			wp_deregister_script('jquery');
 			wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js", false, null);
 			wp_enqueue_script('jquery');
-		}
-	}
-
-
-	// Call Googles HTML5 Shim, but only for users on old versions of IE
-	public function IEhtml5_shim () {
-		global $is_IE;
-		if ($is_IE)
-		echo '<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
-	}
+		}		
+		
+		/* Galleries and Plugin Taxonomy for Attachments 
+		* Write your media queries like you would for browsers with native support. The script will parse your CSS and apply the styles for positive media query tests realtime (also when you resize). 
+		*/
+		wp_enqueue_script('css3-mediaqueries', "{$this->directory_uri}js/css3-mediaqueries.js", array('jquery'),'0.0.1', true);	
+			
+		
+	}  
 
 	/**
 	 * Security
