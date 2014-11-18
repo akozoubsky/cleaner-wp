@@ -163,18 +163,18 @@ final class Cleaner_WP {
 		/* wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" ); */
 		
 		// Performance - Call the google CDN version of jQuery for the frontend
+		/*
 		if ( !is_admin() ) {
 			wp_deregister_script('jquery');
 			wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js", false, null);
 			wp_enqueue_script('jquery');
-		}		
+		}
+		*/		
 		
 		/* Galleries and Plugin Taxonomy for Attachments 
 		* Write your media queries like you would for browsers with native support. The script will parse your CSS and apply the styles for positive media query tests realtime (also when you resize). 
 		*/
-		wp_enqueue_script('css3-mediaqueries', "{$this->directory_uri}js/css3-mediaqueries.js", array('jquery'),'0.0.1', true);	
-			
-		
+		/* @TODO: condition for IE < 9 - wp_enqueue_script('css3-mediaqueries', "{$this->directory_uri}js/css3-mediaqueries.js", array('jquery'),'0.0.1', true); */
 	}  
 
 	/**
@@ -184,10 +184,11 @@ final class Cleaner_WP {
 	// Obscure login screen error messages
 	public function login_obscure() { return null; }
 
-	/*	Cleaning-up header
-		If you don’t add a PRIORITY then you try to remove the generator before WP has added it, especially in a child theme.
-		You haven’t removed the generator from the RSS feed so your efforts are totally in vain. 
-		*/
+	/**
+	 * Cleaning-up header
+	 * If you don’t add a PRIORITY then you try to remove the generator before WP has added it, especially in a child theme.
+	 * You haven’t removed the generator from the RSS feed so your efforts are totally in vain. 
+	 */
 	
 	public function removeHeadLinks() {   	
 		remove_action( 'wp_head', 'feed_links', 2 );
