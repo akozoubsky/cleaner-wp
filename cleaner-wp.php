@@ -3,7 +3,7 @@
  * Plugin Name: Cleaner WP
  * Plugin URI: https://github.com/akozoubsky/cleaner-wp
  * Description: Clean WordPress Features and Styles. 
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: Alexandre Kozoubsky
  * Author URI: http://alexandrekozoubsky.com
  *
@@ -53,11 +53,9 @@ final class Cleaner_WP {
 		/* Set up theme support. */
 		add_action( 'after_setup_theme', array( $this, 'theme_support' ), 12 );
 					
-		add_action( 'pre_get_posts', array( $this, 'search_results_per_page' ), 3 );
+		add_action( 'pre_get_posts', array( $this, 'clwp_pre_get_posts' ), 3 );
 		
-		/* add_filter( 'body_class', array( $this, 'clwp_body_class' ), 4 ); */
-		
-		add_filter('body_class', array( $this, 'has_sidebar' ), 5 );
+		add_filter( 'body_class', array( $this, 'clwp_body_class' ), 4 ); 
 		
 		add_filter('the_content', array( $this, 'remove_img_ptags' ), 6 );
 		
@@ -103,15 +101,19 @@ final class Cleaner_WP {
 	}	
 
 	/**
-	 * Queries
+	 * Blog query and pagination.
+	 *
+	 * @since  0.0.3
+	 * @access public
+	 * @return void
 	 */
-	  
-	//change amount of posts on the search page - set here to 100
-	public function search_results_per_page( $query ) {
-		global $wp_the_query;
-		if ( ( ! is_admin() ) && ( $query === $wp_the_query ) && ( $query->is_search() ) ) {
-		$query->set( 'search_results_per_page', 50 );
+	function clwp_pre_get_posts( $query ) {
+
+		/* do not include password protected posts for not logged in users */
+		if ( $query->is_main_query() &&  !is_user_logged_in() ) {
+			$query->set( 'post_password', '' );
 		}
+		
 		return $query;
 	}
 
@@ -132,19 +134,14 @@ final class Cleaner_WP {
 		if ( has_nav_menu( 'primary' ) )
 			$classes[] = 'display-primary-menu'; /* Primary Menu is activated. */
 
-		return $classes;
-	} 
- 
-	/* Adds a has_sidebar class to the body if there's a sidebar.  */
-	public function has_sidebar($classes) {
-		if (is_active_sidebar('sidebar')) {
+		if ( is_active_sidebar('sidebar') ) {
 			// add 'class-name' to the $classes array
 			$classes[] = 'has_sidebar';
 		}
-		// return the $classes array
+		
 		return $classes;
-	}
-
+	} 
+ 
 	// Stop images getting wrapped up in p tags when they get dumped out with the_content() for easier theme styling
 	public function remove_img_ptags($content){
 		return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
@@ -158,23 +155,6 @@ final class Cleaner_WP {
 		wp_enqueue_script('cleaner-wp-js', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
 		
 		wp_enqueue_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );	
-		
-		/* Gallery shortcode */
-		/* wp_enqueue_style( 'cleaner-wp-gallery', "{$this->directory_uri}css/cleaner-wp-gallery.css" ); */
-		
-		// Performance - Call the google CDN version of jQuery for the frontend
-		/*
-		if ( !is_admin() ) {
-			wp_deregister_script('jquery');
-			wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js", false, null);
-			wp_enqueue_script('jquery');
-		}
-		*/		
-		
-		/* Galleries and Plugin Taxonomy for Attachments 
-		* Write your media queries like you would for browsers with native support. The script will parse your CSS and apply the styles for positive media query tests realtime (also when you resize). 
-		*/
-		/* @TODO: condition for IE < 9 - wp_enqueue_script('css3-mediaqueries', "{$this->directory_uri}js/css3-mediaqueries.js", array('jquery'),'0.0.1', true); */
 	}  
 
 	/**
