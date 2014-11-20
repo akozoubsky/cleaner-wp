@@ -5,7 +5,4 @@ p.empty {
 	line-height:0;
 }
 
-/* Open "post format link" links in a new tab */  
-jQuery(document).ready(function($) {
-jQuery('.format-link .entry-content a').attr('target','_blank');
-});
+br { display: none; }

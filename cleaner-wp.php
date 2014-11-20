@@ -70,6 +70,8 @@ final class Cleaner_WP {
 		
 		add_filter( 'use_default_gallery_style', '__return_false' );
 		
+		add_filter('xmlrpc_methods', 'clwp_alter_hosting_provider_filters');
+		
 		// Disable the theme / plugin text editor in Admin
 		define('DISALLOW_FILE_EDIT', true);
 	}
@@ -178,19 +180,15 @@ final class Cleaner_WP {
 	 * http://blog.spiderlabs.com/2014/03/wordpress-xml-rpc-pingback-vulnerability-analysis.html
 	 */
 
-	if (function_exists('add_filter')) {
-		function clwp_alter_hosting_provider_filters($methods) {
-			if (isset($methods['pingback.ping'])) {
-				/* Disable Pingback Reqests */
-				unset($methods['pingback.ping']);
-			}
-
-			return $methods;
+	public function clwp_alter_hosting_provider_filters( $methods ) {
+		
+		if ( isset( $methods['pingback.ping'] ) ) {
+			/* Disable Pingback Reqests */
+			unset( $methods['pingback.ping'] );
 		}
 
-		add_filter('xmlrpc_methods', 'clwp_alter_hosting_provider_filters');
-	}	 
-	 
+		return $methods;
+	}
 
 	// Obscure login screen error messages
 	public function login_obscure() { return null; }
