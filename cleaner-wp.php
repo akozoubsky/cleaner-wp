@@ -61,7 +61,7 @@ final class Cleaner_WP {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'clwp_cleaner_wp_scripts' ), 8 );
 
-		add_action('init', array( $this, 'clwp_removeHeadLinks' ), 12 );
+		//add_action('init', array( $this, 'clwp_removeHeadLinks' ), 12 );
 
 		/* Generates the relevant template info.  Adds template meta with theme version. */
 		add_action( 'wp_head', array( $this, 'clwp_add_meta_to_head' ), 1 );
@@ -203,6 +203,7 @@ final class Cleaner_WP {
 	 */
 
 	public function clwp_removeHeadLinks() {
+		
 		remove_action( 'wp_head', 'feed_links', 2 );
 		remove_action( 'wp_head', 'feed_links_extra', 3);
 		remove_action( 'wp_head', 'index_rel_link');
@@ -210,14 +211,19 @@ final class Cleaner_WP {
 		remove_action( 'wp_head', 'start_post_rel_link', 10, 0);
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0);
+		
 		remove_action( 'wp_head', 'rsd_link');
 		remove_action( 'wp_head', 'wlwmanifest_link');
+		
 		// Remove the version number of WP
 		// Warning - this info is also available in the readme.html file in your root directory - delete this file!
 		remove_action( 'wp_head', 'wp_generator',99);
+		
 		/* the only way I manage to remove WP version number from head */
 		add_filter( 'the_generator', '__return_null' );
-		add_filter( 'hybrid_meta_template', '__return_null' );
+		
+		/* hybrid core framework */
+		//add_filter( 'hybrid_meta_template', '__return_null' );
 	}
 	/* ====== END Cleaning up  ====== */
 
