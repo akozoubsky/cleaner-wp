@@ -149,7 +149,7 @@ final class Cleaner_WP {
 	 */
 	public function clwp_cleaner_wp_scripts() {
 
-		wp_enqueue_script('cleaner-wp-js', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
+		//wp_enqueue_script('cleaner-wp-js', "{$this->directory_uri}js/cleaner-wp.js", array('jquery'),'0.0.1', true);
 
 		wp_enqueue_style( 'cleaner-wp', "{$this->directory_uri}css/cleaner-wp.css" );
 	}
