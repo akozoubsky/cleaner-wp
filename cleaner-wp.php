@@ -58,9 +58,6 @@ final class Cleaner_WP {
 
 		add_action('init', array( $this, 'clwp_removeWPHeadTags' ), 12 );
 
-		/* Generates the relevant template info.  Adds template meta with theme version. */
-		add_action( 'wp_head', array( $this, 'clwp_add_meta_to_head' ), 1 );
-
 		add_filter( 'login_errors', array( $this, 'clwp_login_obscure' ), 13 );
 		
 		add_action( 'login_enqueue_scripts', array( $this, 'clwp_login_css' ) );
@@ -165,25 +162,6 @@ final class Cleaner_WP {
 		add_filter( 'hybrid_meta_template', '__return_null' );
 	}
 	/* ====== END Cleaning up  ====== */
-
-	/**
-	 * Generates the relevant template info.  Adds template meta with theme version.  Uses the theme
-	 * name and version from style.css.
-	 * filter hook.
-	 *
-	 * @since  0.0.3
-	 * @access public
-	 * @return void
-	 */
-	function clwp_add_meta_to_head() {
-		$theme    = wp_get_theme( get_stylesheet() );
-		$template = '';
-		$template = $template . sprintf( '<meta name="template" content="%s %s" />' . "\n", esc_attr( $theme->get( 'Name' ) ), esc_attr( $theme->get( 'Version' ) ) );
-		$template = $template . sprintf( '<meta name="author" content="%s" />' . "\n", esc_attr( $theme->get( 'Author' ) ) );
-		//echo $template;
-		echo apply_filters( 'clwp_add_meta_to_head', $template );
-	}
-
 
 	/**
 	 * Returns the instance.
