@@ -140,20 +140,20 @@ final class Cleaner_WP {
 
 	public function clwp_removeWPHeadTags() {
 		
-		remove_action( 'wp_head', 'feed_links', 2 ); /* This feature adds RSS feed links to HTML <head>. */
-		remove_action( 'wp_head', 'feed_links_extra', 3);
-		remove_action( 'wp_head', 'index_rel_link');
-		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0);
-		remove_action( 'wp_head', 'start_post_rel_link', 10, 0);
-		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0);
+		//remove_action( 'wp_head', 'feed_links', 2 ); /* This feature adds RSS feed links to HTML <head>. */
+		//remove_action( 'wp_head', 'feed_links_extra', 3);
+		//remove_action( 'wp_head', 'index_rel_link');
+		//remove_action( 'wp_head', 'parent_post_rel_link', 10, 0);
+		//remove_action( 'wp_head', 'start_post_rel_link', 10, 0);
+		//remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+		//remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0);
 		
 		remove_action( 'wp_head', 'rsd_link');
-		remove_action( 'wp_head', 'wlwmanifest_link');
+		//remove_action( 'wp_head', 'wlwmanifest_link');
 		
 		// Remove the version number of WP
 		// Warning - this info is also available in the readme.html file in your root directory - delete this file!
-		remove_action( 'wp_head', 'wp_generator',99);
+		//remove_action( 'wp_head', 'wp_generator',99);
 		
 		/* the only way I manage to remove WP version number from head */
 		add_filter( 'the_generator', '__return_null' );
