@@ -149,11 +149,11 @@ final class Cleaner_WP {
 		//remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0);
 		
 		remove_action( 'wp_head', 'rsd_link');
-		//remove_action( 'wp_head', 'wlwmanifest_link');
+		remove_action( 'wp_head', 'wlwmanifest_link');
 		
 		// Remove the version number of WP
 		// Warning - this info is also available in the readme.html file in your root directory - delete this file!
-		//remove_action( 'wp_head', 'wp_generator',99);
+		remove_action( 'wp_head', 'wp_generator',99);
 		
 		/* the only way I manage to remove WP version number from head */
 		add_filter( 'the_generator', '__return_null' );
